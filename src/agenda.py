@@ -25,8 +25,8 @@ NOMBRE_FICHERO = 'contactos.csv'
 
 RUTA_FICHERO = path.join(RUTA, NOMBRE_FICHERO)
 
-#TODO: Crear un conjunto con las posibles opciones del menú de la agenda
-OPCIONES_MENU = ?
+#TODO: Crear un conjunto con las posibles opciones del menú de la agenda (HECHO)
+OPCIONES_MENU = (1, 2, 3, 4, 5, 6, 7, 8)
 #TODO: Utiliza este conjunto en las funciones agenda() y pedir_opcion()
 
 
@@ -72,15 +72,26 @@ def agenda(contactos: list):
     ...
     """
     #TODO: Crear un bucle para mostrar el menú y ejecutar las funciones necesarias según la opción seleccionada...
+    
 
-    while opcion != 7:
+    while opcion != 8:
         mostrar_menu()
         opcion = pedir_opcion()
 
         #TODO: Se valorará que utilices la diferencia simétrica de conjuntos para comprobar que la opción es un número entero del 1 al 6
         if opcion in ?:
-
-
+            
+def mostrar_menu():
+    print("AGENDA\n" 
+          "------\n"
+          "1. Nuevo contacto\n"
+          "2. Modificar contacto\n"
+          "3. Eliminar contacto\n"
+          "4. Vaciar agenda\n"
+          "5. Cargar agenda inicial\n"
+          "6. Mostrar contactos por criterio\n"
+          "7. Mostrar la agenda completa\n"
+          "8. Salir")
 
 def pulse_tecla_para_continuar():
     """ Muestra un mensaje y realiza una pausa hasta que se pulse una tecla
@@ -159,7 +170,7 @@ def main():
     #
     # >> Seleccione una opción: 
     #
-    #TODO: Para la opción 3, modificar un contacto, deberás desarrollar las funciones necesarias para actualizar la información de un contacto.
+    #TODO: Para la opción 2, modificar un contacto, deberás desarrollar las funciones necesarias para actualizar la información de un contacto.
     #TODO: También deberás desarrollar la opción 6 que deberá preguntar por el criterio de búsqueda (nombre, apellido, email o telefono) y el valor a buscar para mostrar los contactos que encuentre en la agenda.
     agenda(?)
 
