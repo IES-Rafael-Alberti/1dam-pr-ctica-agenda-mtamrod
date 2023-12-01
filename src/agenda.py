@@ -74,15 +74,37 @@ def eliminar_contacto(contactos: list, email: str):
         print(f"**Error** {e}")
         print("No se eliminó ningún contacto")
         
-def buscar_contacto():
+#################def buscar_contacto():
     
-def agregar_contacto():
+def agregar_contacto(contactos: list):
+    tlf = []
+
     nom = input("Introduce un nombre: ").title()
     ape = input("Introduce un apellido: ").title()
     mail = input("Introduce un email: ")
-    tlf = input("Introduce un teléfono: ")
+    numero_tlf = input("Introduce un teléfono: ")
+
+    tlf.append(numero_tlf)
+
+    mail_upper_lower = mail.lower() #Se mostrará el email como lo escribe el usuario, al programa no le importa si es mayuscula o minuscula
+    arroba = "@"
     
-    
+    while nom == "" or ape == "" or mail == "" or arroba not in mail or tlf != "":
+        if nom == "":
+            nom = input("Introduce un nombre: ").title()
+        if ape == "":
+            ape = input("Introduce un apellido: ").title()
+        if mail == "" or arroba not in mail:
+            mail = input("Introduce un email: ")
+        if numero_tlf != "":
+            numero_tlf = input("Introduce un teléfono: ")
+            tlf.append(numero_tlf)
+
+    nuevo_contacto = {'nombre':nom, 'apellido': ape, 'email': mail, 'telefono':numero_tlf}
+    contactos.append(nuevo_contacto)
+
+    return nuevo_contacto
+            
 def agenda(contactos: list):
     """ Ejecuta el menú de la agenda con varias opciones
     ...
@@ -125,22 +147,22 @@ def main():
     #TODO: Asignar una estructura de datos vacía para trabajar con la agenda (HECHO)
     contactos = []
 
-    #TODO: Modificar la función cargar_contactos para que almacene todos los contactos del fichero en una lista con un diccionario por contacto (claves: nombre, apellido, email y telefonos)
+    #TODO: Modificar la función cargar_contactos para que almacene todos los contactos del fichero en una lista con un diccionario por contacto (claves: nombre, apellido, email y telefonos) (HECHO)
     #TODO: Realizar una llamada a la función cargar_contacto con todo lo necesario para que funcione correctamente. (HECHO)
     cargar_contactos(contactos)
 
     #TODO: Crear función para agregar un contacto. Debes tener en cuenta lo siguiente:
-    # - El nombre y apellido no pueden ser una cadena vacía o solo espacios y se guardarán con la primera letra mayúscula y el resto minúsculas (ojo a los nombre compuestos)
-    # - El email debe ser único en la lista de contactos, no puede ser una cadena vacía y debe contener el carácter @.
+    # - El nombre y apellido no pueden ser una cadena vacía o solo espacios y se guardarán con la primera letra mayúscula y el resto minúsculas (ojo a los nombre compuestos) (HECHO)
+    # - El email debe ser único en la lista de contactos, no puede ser una cadena vacía y debe contener el carácter @. (HECHO)
     # - El email se guardará tal cuál el usuario lo introduzca, con las mayúsculas y minúsculas que escriba. 
     #  (CORREO@gmail.com se considera el mismo email que correo@gmail.com)
-    # - Pedir teléfonos hasta que el usuario introduzca una cadena vacía, es decir, que pulse la tecla <ENTER> sin introducir nada.
-    # - Un teléfono debe estar compuesto solo por 9 números, aunque debe permitirse que se introduzcan espacios entre los números.
-    # - Además, un número de teléfono puede incluir de manera opcional un prefijo +34.
-    # - De igual manera, aunque existan espacios entre el prefijo y los 9 números al introducirlo, debe almacenarse sin espacios.
+    # - Pedir teléfonos hasta que el usuario introduzca una cadena vacía, es decir, que pulse la tecla <ENTER> sin introducir nada.(HECHO)
+    # - Un teléfono debe estar compuesto solo por 9 números, aunque debe permitirse que se introduzcan espacios entre los números. (???)
+    # - Además, un número de teléfono puede incluir de manera opcional un prefijo +34. (???)
+    # - De igual manera, aunque existan espacios entre el prefijo y los 9 números al introducirlo, debe almacenarse sin espacios. (???)
     # - Por ejemplo, será posible introducir el número +34 600 100 100, pero guardará +34600100100 y cuando se muestren los contactos, el telófono se mostrará como +34-600100100. 
     #TODO: Realizar una llamada a la función agregar_contacto con todo lo necesario para que funcione correctamente.
-    agregar_contacto(?)
+    agregar_contacto(contactos)
 
     pulse_tecla_para_continuar()
     borrar_consola()
