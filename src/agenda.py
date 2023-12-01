@@ -61,10 +61,11 @@ def eliminar_contacto(contactos: list, email: str):
     """ Elimina un contacto de la agenda
     ...
     """
+    print ("a")
     
     try:
-        buscar_contacto(contactos)
-        #TODO: Crear función buscar_contacto para recuperar la posición de un contacto con un email determinado 
+        pos = buscar_contacto(contactos)
+        #TODO: Crear función buscar_contacto para recuperar la posición de un contacto con un email determinado (HECHO)
 
         if pos != None:
             del contactos[pos]
@@ -76,9 +77,40 @@ def eliminar_contacto(contactos: list, email: str):
         print("No se eliminó ningún contacto")
         
 def buscar_contacto(contactos: list):
-    for contacto in contactos:
+    email_intro = str(input("Introduce el email del contacto que quieres borrar: "))
+    for pos, contacto in enumerate(contactos):
         if contacto.get('email') == email_intro:
-    
+            return pos
+
+def buscar_criterio(contactos: list):
+    criterio = input("Introduzca el criterio por el que quiere buscar: ")
+    criterio = criterio.lower()
+    mostrar_criterio = ''
+
+    while criterio != 'invalido':
+        if criterio == 'nombre':
+            nombre_intro = input("Introduzca un nombre: ")
+            for pos, contacto in enumerate(contactos):
+                if contacto.get('nombre') == nombre_intro:
+                    mostrar_criterio +=
+        elif criterio == 'apellido':
+            apellido_intro = input("Introduzca un apellido: ")
+            for pos, contacto in enumerate(contactos):
+                if contacto.get('nombre') == apellido_intro:
+                    return pos
+        elif criterio == 'email' or criterio == 'mail':
+            email_intro = input("Introduzca un nombre: ")
+            for pos, contacto in enumerate(contactos):
+                if contacto.get('nombre') == email_intro:
+                    return pos
+        elif criterio == 'telefonos'or criterio == 'telefonos':
+            telefono_intro = input("Introduzca un nombre: ")
+            for pos, contacto in enumerate(contactos):
+                if contacto.get('nombre') == telefono_intro:
+                    return pos
+        else:
+            criterio == 'invalido'
+        
 def agregar_contacto(contactos: list):
     tlf = []
 
@@ -164,6 +196,19 @@ def pulse_tecla_para_continuar():
     print("\n")
     os.system("pause")
 
+def modificar_contacto(contactos):
+
+def mostrar_contactos(contactos):
+    print("AGENDA\n------")
+    for contacto in contactos:
+        nombre = contactos.get('nombre')
+        apellido = contactos.get('apellido')
+        email = contactos.get('email')
+        telefonos = [contactos.get('telefono')]
+        telefonos = ', '.join(telefonos)
+
+        print(f"Nombre: {nombre} {apellido} ({email})\nTeléfonos: {telefonos}\n......")
+
 def main():
     """ Función principal del programa
     """
@@ -193,7 +238,7 @@ def main():
     borrar_consola()
 
     #TODO: Realizar una llamada a la función eliminar_contacto con todo lo necesario para que funcione correctamente, eliminando el contacto con el email rciruelo@gmail.com
-    eliminar_contacto(?)
+    eliminar_contacto(contactos)
 
     pulse_tecla_para_continuar()
     borrar_consola()
@@ -214,8 +259,8 @@ def main():
     # ......
     # ** resto de contactos **
     #
-    #TODO: Realizar una llamada a la función mostrar_contactos con todo lo necesario para que funcione correctamente.
-    mostrar_contactos(?)
+    #TODO: Realizar una llamada a la función mostrar_contactos con todo lo necesario para que funcione correctamente. (HECHO)
+    mostrar_contactos(contactos)
 
     pulse_tecla_para_continuar()
     borrar_consola()
