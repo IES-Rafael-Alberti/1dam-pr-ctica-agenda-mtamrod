@@ -63,6 +63,7 @@ def eliminar_contacto(contactos: list, email: str):
     """
     
     try:
+        buscar_contacto(contactos)
         #TODO: Crear función buscar_contacto para recuperar la posición de un contacto con un email determinado 
 
         if pos != None:
@@ -74,7 +75,9 @@ def eliminar_contacto(contactos: list, email: str):
         print(f"**Error** {e}")
         print("No se eliminó ningún contacto")
         
-#################def buscar_contacto():
+def buscar_contacto(contactos: list):
+    for contacto in contactos:
+        if contacto.get('email') == email_intro:
     
 def agregar_contacto(contactos: list):
     tlf = []
@@ -84,23 +87,22 @@ def agregar_contacto(contactos: list):
     mail = input("Introduce un email: ")
     numero_tlf = input("Introduce un teléfono: ")
 
-    tlf.append(numero_tlf)
-
     mail_upper_lower = mail.lower() #Se mostrará el email como lo escribe el usuario, al programa no le importa si es mayuscula o minuscula
     arroba = "@"
     
-    while nom == "" or ape == "" or mail == "" or arroba not in mail or tlf != "":
+    while nom == "" or ape == "":
         if nom == "":
-            nom = input("Introduce un nombre: ").title()
+            nom = input("Introduce un nombre válido: ").title()
         if ape == "":
-            ape = input("Introduce un apellido: ").title()
-        if mail == "" or arroba not in mail:
-            mail = input("Introduce un email: ")
-        if numero_tlf != "":
-            while 
-            if reestriccion_telefono(numero_tlf) == True:
-                tlf.append(numero_tlf)
-                numero_tlf = input("Introduce un teléfono: ")
+            ape = input("Introduce un apellido válido: ").title()
+    
+    while mail == "" or arroba not in mail:
+        mail = input("Introduce un email válido: ")
+
+    while tlf != "":
+        numero_tlf = input("Introduce un teléfono: ")
+        if reestriccion_telefono(numero_tlf) == True:
+            tlf.append(numero_tlf)
 
     nuevo_contacto = {'nombre':nom, 'apellido': ape, 'email': mail, 'telefono':numero_tlf}
     contactos.append(nuevo_contacto)
@@ -108,20 +110,26 @@ def agregar_contacto(contactos: list):
     return contactos
 
 def reestriccion_telefono(numero_tlf):
-    numero_tlf.replace(" ", "")
-    if numero_tlf.startswith("+34"):
-        numero_tlf.replace("+34", " ")
-        while len(numero_tlf) != 10:
-            numero_tlf = input("Introduce un teléfono válido: ")
-        numero_tlf.replace(" ", "+34")
+    numero_tlf = numero_tlf.replace(" ", "")
+
+    if not numero_tlf.startswith("+34") and len(numero_tlf) == 9:
+        reestriccion = True
+    elif numero_tlf.startswith("+34") and len(numero_tlf) == 12:
+        reestriccion = True
     else:
-        while len(numero_tlf) != 9:
-            numero_tlf = input("Introduce un teléfono válido: ")
-    
-    
+        reestriccion = False
 
+    while reestriccion == False:
+        numero_tlf = input("Introduce un teléfono válido: ")
+        numero_tlf = numero_tlf.replace(" ", "")
 
-            
+        if not numero_tlf.startswith("+34") and len(numero_tlf) == 9:
+            reestriccion = True
+        elif numero_tlf.startswith("+34") and len(numero_tlf) == 12:
+            reestriccion = True
+
+    return reestriccion
+    
 def agenda(contactos: list):
     """ Ejecuta el menú de la agenda con varias opciones
     ...
@@ -174,10 +182,10 @@ def main():
     # - El email se guardará tal cuál el usuario lo introduzca, con las mayúsculas y minúsculas que escriba. 
     #  (CORREO@gmail.com se considera el mismo email que correo@gmail.com)
     # - Pedir teléfonos hasta que el usuario introduzca una cadena vacía, es decir, que pulse la tecla <ENTER> sin introducir nada.(HECHO)
-    # - Un teléfono debe estar compuesto solo por 9 números, aunque debe permitirse que se introduzcan espacios entre los números. (???)
-    # - Además, un número de teléfono puede incluir de manera opcional un prefijo +34. (???)
-    # - De igual manera, aunque existan espacios entre el prefijo y los 9 números al introducirlo, debe almacenarse sin espacios. (???)
-    # - Por ejemplo, será posible introducir el número +34 600 100 100, pero guardará +34600100100 y cuando se muestren los contactos, el telófono se mostrará como +34-600100100. 
+    # - Un teléfono debe estar compuesto solo por 9 números, aunque debe permitirse que se introduzcan espacios entre los números. (HECHO)
+    # - Además, un número de teléfono puede incluir de manera opcional un prefijo +34. (HECHO)
+    # - De igual manera, aunque existan espacios entre el prefijo y los 9 números al introducirlo, debe almacenarse sin espacios. (HECHO)
+    # - Por ejemplo, será posible introducir el número +34 600 100 100, pero guardará +34600100100 y cuando se muestren los contactos, el telófono se mostrará como +34-600100100. (???)
     #TODO: Realizar una llamada a la función agregar_contacto con todo lo necesario para que funcione correctamente.
     agregar_contacto(contactos)
 
@@ -185,7 +193,7 @@ def main():
     borrar_consola()
 
     #TODO: Realizar una llamada a la función eliminar_contacto con todo lo necesario para que funcione correctamente, eliminando el contacto con el email rciruelo@gmail.com
-    #eliminar_contacto(?)
+    eliminar_contacto(?)
 
     pulse_tecla_para_continuar()
     borrar_consola()
