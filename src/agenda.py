@@ -97,13 +97,30 @@ def agregar_contacto(contactos: list):
         if mail == "" or arroba not in mail:
             mail = input("Introduce un email: ")
         if numero_tlf != "":
-            numero_tlf = input("Introduce un teléfono: ")
-            tlf.append(numero_tlf)
+            while 
+            if reestriccion_telefono(numero_tlf) == True:
+                tlf.append(numero_tlf)
+                numero_tlf = input("Introduce un teléfono: ")
 
     nuevo_contacto = {'nombre':nom, 'apellido': ape, 'email': mail, 'telefono':numero_tlf}
     contactos.append(nuevo_contacto)
 
-    return nuevo_contacto
+    return contactos
+
+def reestriccion_telefono(numero_tlf):
+    numero_tlf.replace(" ", "")
+    if numero_tlf.startswith("+34"):
+        numero_tlf.replace("+34", " ")
+        while len(numero_tlf) != 10:
+            numero_tlf = input("Introduce un teléfono válido: ")
+        numero_tlf.replace(" ", "+34")
+    else:
+        while len(numero_tlf) != 9:
+            numero_tlf = input("Introduce un teléfono válido: ")
+    
+    
+
+
             
 def agenda(contactos: list):
     """ Ejecuta el menú de la agenda con varias opciones
@@ -153,7 +170,7 @@ def main():
 
     #TODO: Crear función para agregar un contacto. Debes tener en cuenta lo siguiente:
     # - El nombre y apellido no pueden ser una cadena vacía o solo espacios y se guardarán con la primera letra mayúscula y el resto minúsculas (ojo a los nombre compuestos) (HECHO)
-    # - El email debe ser único en la lista de contactos, no puede ser una cadena vacía y debe contener el carácter @. (HECHO)
+    # - El email debe ser único en la lista de contactos, no puede ser una cadena vacía y debe contener el carácter @. (Falta ser UNICO)
     # - El email se guardará tal cuál el usuario lo introduzca, con las mayúsculas y minúsculas que escriba. 
     #  (CORREO@gmail.com se considera el mismo email que correo@gmail.com)
     # - Pedir teléfonos hasta que el usuario introduzca una cadena vacía, es decir, que pulse la tecla <ENTER> sin introducir nada.(HECHO)
